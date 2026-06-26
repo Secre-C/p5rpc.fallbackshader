@@ -29,6 +29,19 @@ public class FallbackShader
     
     private unsafe delegate GfdShaderFragment* DGfdShaderFragmentCreateFromId(GfdShaderID* pId);
     private IHook<DGfdShaderFragmentCreateFromId> _gfdShaderFragmentCreateFromIdHook;
+
+    private unsafe string? GetShaderIdString(GfdShaderID* pId)
+    {
+        switch (config.Mode)
+        {
+            case Config.PrintMode.Info:
+                return pId->ToString();
+            case Config.PrintMode.Hash:
+                return pId->GetHashCode();
+        }
+
+        return null;
+    }
     
     internal unsafe FallbackShader(IReloadedHooks hooks, Config config)
     {
@@ -91,8 +104,8 @@ public class FallbackShader
                     foundShader = _gfdShaderSearchFromId(pId);
                 }
                 
-                if (config.PrintShaders && pId != null)
-                    Logger.Log(pId->ToString());
+                if (pId != null && config.Mode != Config.PrintMode.Off)
+                    Logger.Log(pId->GetHashCode());
                 
                 while (true)
                 {

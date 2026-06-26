@@ -24,16 +24,23 @@ public class Config : Configurable<Config>
 
         The `DefaultValue` attribute is used as part of the `Reset` button in Reloaded-Launcher.
     */
-
-    [DisplayName("Print Missing Shaders")]
-    [Description("Print Shader ID Info for Shaders the Game Fails to Find.")]
-    [DefaultValue(false)]
-    public bool PrintShaders { get; set; } = false;
     
     [DisplayName("Debug Printing")]
     [Description("Enable Debug Printing.")]
     [DefaultValue(false)]
     public bool Debug { get; set; } = false;
+
+    [DisplayName("Print Mode")]
+    [Description("Mode for Printing Missing Shaders")]
+    [DefaultValue(PrintMode.Off)]
+    public PrintMode Mode { get; set; } = PrintMode.Off;
+    
+    public enum PrintMode
+    {
+        Off,
+        Info,
+        Hash
+    }
 }
 
 /// <summary>

@@ -15,6 +15,10 @@ internal struct GfdShaderID
     internal uint texcoordin;
     internal uint texcoordout;
 
+    public string GetHashCode()
+    {
+        return $"{type}_{flag0:X}_{flag1:X}_{flag2:X}_{flag3:X}_{texcoordin:X}_{texcoordout:X}";
+    }
     public override string? ToString()
     {
         return 
