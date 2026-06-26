@@ -1,0 +1,38 @@
+{
+  "ModId": "p5rpc.fallbackshader",
+  "ModName": "Use Fallback Shaders",
+  "ModAuthor": "SecreC.",
+  "ModVersion": "1.0.0",
+  "ModDescription": "Makes the game use a fallback shader when it\u0027s unable to find one",
+  "ModDll": "p5rpc.fallbackshader.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/p5rpc.fallbackshader.dll",
+  "ModR2RManagedDll64": "x64/p5rpc.fallbackshader.dll",
+  "ModNativeDll32": "",
+  "ModNativeDll64": "",
+  "Tags": [],
+  "CanUnload": false,
+  "HasExports": false,
+  "IsLibrary": false,
+  "ReleaseMetadataFileName": "p5rpc.fallbackshader.ReleaseMetadata.json",
+  "IgnoreRegexes": [
+    ".*\\.json"
+  ],
+  "IncludeRegexes": [
+    "\\.deps\\.json",
+    "\\.runtimeconfig\\.json",
+    "ModConfig\\.json"
+  ],
+  "PluginData": {},
+  "IsUniversalMod": false,
+  "ModDependencies": [
+    "Reloaded.Memory.SigScan.ReloadedII",
+    "reloaded.sharedlib.hooks",
+    "SharedScans.Reloaded"
+  ],
+  "OptionalDependencies": [],
+  "SupportedAppId": [
+    "p5r.exe"
+  ],
+  "ProjectUrl": ""
+}
