@@ -5,6 +5,12 @@ namespace p5rpc.fallbackshader;
 
 public class Config : Configurable<Config>
 {
+    public enum PrintMode
+    {
+        Off,
+        Info,
+        Hash
+    }
     /*
         User Properties:
             - Please put all of your configurable properties here.
@@ -24,28 +30,31 @@ public class Config : Configurable<Config>
 
         The `DefaultValue` attribute is used as part of the `Reset` button in Reloaded-Launcher.
     */
-    
+
     [DisplayName("Debug Printing")]
     [Description("Enable Debug Printing.")]
     [DefaultValue(false)]
     public bool Debug { get; set; } = false;
 
+    [DisplayName("Compile Shaders")]
+    [Description("Compile shaders instead of using a fallback.")]
+    [DefaultValue(true)]
+    public bool Compile { get; set; } = true;
+
+    [DisplayName("Output Shaders to File")]
+    [Description("Output compiled shaders to file (found in this mods \"compiled\" folder)")]
+    [DefaultValue(true)]
+    public bool Output { get; set; } = true;
+    
     [DisplayName("Print Mode")]
     [Description("Mode for Printing Missing Shaders")]
     [DefaultValue(PrintMode.Off)]
     public PrintMode Mode { get; set; } = PrintMode.Off;
-    
-    public enum PrintMode
-    {
-        Off,
-        Info,
-        Hash
-    }
 }
 
 /// <summary>
-/// Allows you to override certain aspects of the configuration creation process (e.g. create multiple configurations).
-/// Override elements in <see cref="ConfiguratorMixinBase"/> for finer control.
+///     Allows you to override certain aspects of the configuration creation process (e.g. create multiple configurations).
+///     Override elements in <see cref="ConfiguratorMixinBase" /> for finer control.
 /// </summary>
 public class ConfiguratorMixin : ConfiguratorMixinBase
 {

@@ -1,7 +1,8 @@
-﻿using Reloaded.Mod.Interfaces;
-using System.Drawing;
+﻿using System.Drawing;
+using Reloaded.Mod.Interfaces;
 
 namespace p5rpc.fallbackshader.Utils;
+
 internal static class Logger
 {
     internal static ILogger? logger { get; set; }
@@ -11,10 +12,12 @@ internal static class Logger
     {
         logger.WriteLineAsync($"{prefix} {message}", color);
     }
+
     private static void Log(string prefix, string message, Color color)
     {
         logger.WriteLine($"{prefix} {message}", color);
     }
+
     internal static void Log(string message, Color color)
     {
         LogAsync("[FallbackShader]", message, color);

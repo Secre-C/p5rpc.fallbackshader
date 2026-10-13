@@ -1,0 +1,3 @@
+[submodule "Submodules/NeedleShaders"]
+	path = Submodules/NeedleShaders
+	url = https://github.com/hedge-dev/NeedleShaders

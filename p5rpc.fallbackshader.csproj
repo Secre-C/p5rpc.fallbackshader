@@ -17,7 +17,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <OutputPath>/home/secrec/Desktop/Reloaded-II - P5R/Mods/p5rpc.fallbackshader/</OutputPath>
+        <OutputPath>/home/secrec/Desktop/Reloaded-II - P5R/Mods/p5rpc.fallbackshader/</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>
@@ -35,6 +35,72 @@
         <None Remove="BuildLinked.ps1"/>
         <None Remove="Reloaded.Trimming.targets"/>
         <None Remove="Reloaded.Checks.targets"/>
+        <None Update="ShaderSrc\0_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\0_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\1_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\1_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\2_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\2_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\3_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\3_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\70_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\70_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\71_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\71_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\92_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\92_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\93_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\93_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\99_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\99_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\119_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\119_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\134_ps.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ShaderSrc\134_vs.hlsl">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -48,13 +114,24 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.3"/>
-        <PackageReference Include="Reloaded.Memory.SigScan.ReloadedII.Interfaces" Version="1.2.0" />
+        <PackageReference Include="Reloaded.Memory.SigScan.ReloadedII.Interfaces" Version="1.2.0"/>
         <PackageReference Include="Reloaded.Mod.Interfaces" Version="2.4.0" ExcludeAssets="runtime"/>
         <PackageReference Include="Reloaded.SharedLib.Hooks" Version="1.9.0"/>
+        <PackageReference Include="Vortice.Direct3D11" Version="3.8.3"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="Submodules\NeedleShaders\HE2ShaderCompiler\HE2ShaderCompiler.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Submodules\**" />
+        <EmbeddedResource Remove="Submodules\**" />
+        <None Remove="Submodules\**" />
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-      <Exec Command="export RELOADEDIIMODS=&quot;/home/secrec/Desktop/Reloaded-II - P5R/Mods&quot;" />
+        <Exec Command="export RELOADEDIIMODS=&quot;/home/secrec/Desktop/Reloaded-II - P5R/Mods&quot;"/>
     </Target>
 
 </Project>

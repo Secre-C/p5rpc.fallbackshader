@@ -1,8 +1,4 @@
-using System.Text;
-using p5rpc.fallbackshader.Utils;
-
 namespace p5rpc.fallbackshader;
-
 
 internal struct GfdShaderID
 {
@@ -19,9 +15,10 @@ internal struct GfdShaderID
     {
         return $"{type}_{flag0:X}_{flag1:X}_{flag2:X}_{flag3:X}_{texcoordin:X}_{texcoordout:X}";
     }
+
     public override string? ToString()
     {
-        return 
+        return
             $"type -> {type:X}\n" +
             $"flag0 -> 0x{flag0:X8}\n" +
             $"flag1 -> 0x{flag1:X8}\n" +

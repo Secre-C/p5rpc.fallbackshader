@@ -1,9 +1,9 @@
 {
   "ModId": "p5rpc.fallbackshader",
-  "ModName": "Use Fallback Shaders",
+  "ModName": "Compile Missing Shaders",
   "ModAuthor": "SecreC.",
-  "ModVersion": "1.1.0",
-  "ModDescription": "Makes the game use a fallback shader when it\u0027s unable to find one",
+  "ModVersion": "2.0.0",
+  "ModDescription": "Automatically Compile a shader or use a fallback shader when the game\u0027s unable to find one. (who needs claude anyway)",
   "ModDll": "p5rpc.fallbackshader.dll",
   "ModIcon": "Preview.png",
   "ModR2RManagedDll32": "x86/p5rpc.fallbackshader.dll",

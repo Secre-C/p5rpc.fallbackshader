@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "p5rpc.fallbackshader", "p5rpc.fallbackshader.csproj", "{7D618910-5FE0-41BC-9367-4CE0604CD2F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HE2ShaderCompiler", "Submodules\NeedleShaders\HE2ShaderCompiler\HE2ShaderCompiler.csproj", "{B7F6D135-D798-4E9C-95E4-5BB02FB2665E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{7D618910-5FE0-41BC-9367-4CE0604CD2F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D618910-5FE0-41BC-9367-4CE0604CD2F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D618910-5FE0-41BC-9367-4CE0604CD2F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7F6D135-D798-4E9C-95E4-5BB02FB2665E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7F6D135-D798-4E9C-95E4-5BB02FB2665E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7F6D135-D798-4E9C-95E4-5BB02FB2665E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7F6D135-D798-4E9C-95E4-5BB02FB2665E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
