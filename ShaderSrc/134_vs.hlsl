@@ -106,65 +106,21 @@ struct gfd3DVpOut
 
 /*---------------------------------------------------------------------------*/
 
-ConstantBuffer GFD_VSCONST_SYSTEM : register(b0)
-{
-	float4		zeroVec;
-	float4		constants;
-	float3		scale2D;
-}
+#include "common/vs_const_system.hlsl"
 
-ConstantBuffer GFD_VSCONST_TRANSFORM : register(b1)
-{
-	float4x4	mtxLocalToWorld;
-	// float3x3	mtxNormal;
-}
+#include "common/vs_const_transform.hlsl"
 
-ConstantBuffer GFD_VSCONST_VIEWPROJ : register(b2)
-{
-	float4x4	mtxViewProj;
-	float4x4	mtxView;
-	float3		eyePosition;
-	float		_reserved_b2;
-}
+#include "common/vs_const_viewproj.hlsl"
 
-ConstantBuffer GFD_VSCONST_SHADOW : register(b3)
-{
-	float4x4	mtxLightViewProj[4];
-}
+#include "common/vs_const_shadow4.hlsl"
 
-ConstantBuffer GFD_VSCONST_LIGHT_VEC : register(b4)
-{
-	float4		light0Vec;
-	float4		light1Vec;
-	float4		light2Vec;
-}
+#include "common/vs_const_light_vec.hlsl"
 
-ConstantBuffer GFD_VSCONST_FOGFACTOR : register(b5)
-{
-	float4		fog;
-	float2		heightFog;
-	float2		_reserved_b5;
-}
+#include "common/vs_const_fogfactor.hlsl"
 
-ConstantBuffer GFD_VSCONST_COLORS : register(b6)
-{
-	float4		constantColor;
-}
+#include "common/vs_const_colors.hlsl"
 
-ConstantBuffer GFD_VSCONST_UV0_TRANSFORM : register(b10)
-{
-	float4x4	mtxUV0Transform;
-}
-
-ConstantBuffer GFD_VSCONST_UV1_TRANSFORM : register(b11)
-{
-	float4x4	mtxUV1Transform;
-}
-
-ConstantBuffer GFD_VSCONST_UV2_TRANSFORM : register(b12)
-{
-	float4x4	mtxUV2Transform;
-}
+#include "common/vs_const_uv_transforms.hlsl"
 
 /*---------------------------------------------------------------------------*/
 gfd3DVpOut main(gfd3DVpIn vertex)
@@ -194,53 +150,19 @@ gfd3DVpOut main(gfd3DVpIn vertex)
 	result.normal.xyz = 0.f;
 #endif
 
-#if ((FLAG1_MATERIAL_SHADOW) && (!FLAG2_REFLECTION_CASTER))
-	#if (FLAG2_CSM)
-	result.lightcoord[0] = mul( position, mtxLightViewProj[0]);
-	result.lightcoord[1] = mul( position, mtxLightViewProj[1]);
-	result.lightcoord[2] = mul( position, mtxLightViewProj[2]);
-	#else
-	result.lightcoord = mul( position, mtxLightViewProj[0]);
-	#endif
-#endif
+#include "common/vs_lightcoord.hlsl"
 
 #if (FLAG1_TEXTURE2 && (FLAG1_MATERIAL_LIGHT || FLAG1_MATERIAL_REFLECTION))
-	float3   binormal      = mul( vertex.binormal.xyz, (float3x3)mtxLocalToWorld);
-	float3   tangent       = cross( normal, binormal);
-	float3x3 tangentMtx    = { tangent, binormal, normal};
+#include "common/vs_tangent_basis.hlsl"
 #endif
 
 #if (FLAG1_MATERIAL_LIGHT)
 
-	#if (FLAG0_LIGHT0_DIRECTION || FLAG0_LIGHT0_POINT || FLAG0_LIGHT0_SPOT)
-		#if (FLAG0_LIGHT0_DIRECTION)
-		result.light0Vec = light0Vec;
-			#if (FLAG1_TEXTURE2)
-			result.light0TangentDir = float4( mul( light0Vec.xyz, transpose(tangentMtx) ) , 1.f);
-			#endif
-		#else
-		result.light0Vec = light0Vec - position;
-			#if (FLAG1_TEXTURE2)
-			result.light0TangentDir = float4( mul( normalize(result.light0Vec.xyz), transpose(tangentMtx) ) , 1.f);
-			#endif
-		#endif
-	#endif
+#include "common/vs_light0vec.hlsl"
 
-	#if (FLAG0_LIGHT1_DIRECTION || FLAG0_LIGHT1_POINT || FLAG0_LIGHT1_SPOT)
-		#if (FLAG0_LIGHT1_DIRECTION)
-		result.light1Vec = light1Vec;
-		#else
-		result.light1Vec = light1Vec - position;
-		#endif
-	#endif
+#include "common/vs_light1vec.hlsl"
 
-	#if (FLAG0_LIGHT2_DIRECTION || FLAG0_LIGHT2_POINT || FLAG0_LIGHT2_SPOT)
-		#if (FLAG0_LIGHT2_DIRECTION)
-		result.light2Vec = light2Vec;
-		#else
-		result.light2Vec = light2Vec - position;
-		#endif
-	#endif
+#include "common/vs_light2vec.hlsl"
 
 #endif
 
@@ -256,17 +178,7 @@ gfd3DVpOut main(gfd3DVpIn vertex)
 	#endif
 #endif
 
-#if (FLAG1_MATERIAL_VERTEXCOLOR)
-	#if (FLAG0_CONSTANTCOLOR)
-		result.color = vertex.color * constantColor;
-	#else
-		result.color = vertex.color;
-	#endif
-#else
-	#if (FLAG0_CONSTANTCOLOR)
-		result.color = constantColor;
-	#endif
-#endif
+#include "common/vs_vertex_color.hlsl"
 
 	float threshold;
 
@@ -368,43 +280,7 @@ gfd3DVpOut main(gfd3DVpIn vertex)
 	#endif
 #endif
 
-#if (FLAG1_MATERIAL_FOG)
-	float4 view = mul( position, mtxView);
-
-#if 1 // 2015/09/04 niida
-	float z      = -view.z;
-	float param0 = fog.y;
-	float param1 = fog.z;
-	float fraction;
-
-	if( fog.w == 0.f )
-	{
-		// linear
-		fraction = z * param1 + ( param0 - 1.0f );
-	}else
-	if( fog.w == 1.f )
-	{
-		// exponential
-		float dist = 11.084f * ( param1 * z + param0 - 1.5f );
-		fraction   = exp( dist );
-	}else{
-		// exponential2
-		float dist = 4.709f * ( param1 * z + param0 - 1.5f );
-		fraction   = exp( -( dist * dist ) );
-	}
-
-	result.misc.x   = saturate( fraction );
-	result.misc.yzw = 0;
-#else
-	result.misc   = 0;
-	result.misc.x = clamp( (fog.y + view.z) * fog.z, 0.0f, 1.0f);
-#endif
-
-#endif
-
-#if (FLAG1_MATERIAL_HEIGHTFOG)
-	result.normal.w = heightFog.x + position.y * heightFog.y;
-#endif
+#include "common/vs_fog.hlsl"
 
 	return result;
 }

@@ -2,7 +2,7 @@ using Vortice.Direct3D;
 
 namespace p5rpc.fallbackshader;
 
-public static class ShaderArgs
+public static class gfdShaderDefines
 {
     private static readonly Dictionary<uint, string> FLAG0 = new()
     {
@@ -150,6 +150,24 @@ public static class ShaderArgs
             var flag = (uint)(1 << i);
             if ((flag & pId->flag3) == flag && FLAG3.TryGetValue(flag, out var flagName))
                 macro.Add(new ShaderMacro(flagName, 1));
+        }
+
+        var texcoordin = new Dictionary<uint, uint>();
+        for (var i = 0; i < 10; i++)
+        {
+            var slot = pId->texcoordout >> (i * 3) & 0x7;
+            var val = pId->texcoordin>> (i * 3) & 0x7;
+            if (slot < 3)
+            {
+                texcoordin[slot] = val;
+                macro.Add(new ShaderMacro("CHANNEL_TEX" + (i + 1), pId->texcoordout >> (i * 3) & 0x7));
+            }
+        }
+
+        for (uint i = 0; i < 3; i++)
+        {
+            if (texcoordin.TryGetValue(i, out var val))
+                macro.Add(new ShaderMacro("IN_TEXCOORD" + i, val));
         }
 
         return macro.ToArray();

@@ -84,16 +84,16 @@ internal unsafe class GfdShaderFragmentFallback
                             Logger.Log(pId->GetHashCode());
 
                         GfdShaderFragment* shader = null;
-                        if (config.Compile)
+                        try
                         {
                             var pShaderSrc = Path.Join(modDir, "ShaderSrc", pId->type + "_ps.hlsl");
                             var shaderFlags = new ShaderFlags();
                             shaderFlags |= ShaderFlags.OptimizationLevel3;
 
-                            var macros = ShaderArgs.GenerateShaderArgs(pId);
+                            var macros = gfdShaderDefines.GenerateShaderArgs(pId);
                             Logger.DebugLog("macros: " + macros.Length);
 
-                            var pCode = D3DCompiler.CompileShader(pShaderSrc, "ps_5_0", macros, shaderFlags);
+                            var pCode = D3DCompiler.CompileShader(pShaderSrc, "ps_5_0", macros, shaderFlags, config.Debug);
                             if (config.Output)
                                 File.WriteAllBytes(Path.Join(modDir, "compiled", "Pixel_" + pId->GetHashCode() + ".bin"), pCode);
 
@@ -103,8 +103,9 @@ internal unsafe class GfdShaderFragmentFallback
                             shader = _gfdShaderFragmentCreate(pId, pCode, pCode.Length);
                             _gfdMutexUnlock(mutex);
                         }
-                        else
+                        catch (Exception e)
                         {
+                            Logger.Log($"Failed to compile Pixel shader for {pId->GetHashCode()}: {e.Message}");
                             var shaderIndex = 0xc5;
 
                             while (true)

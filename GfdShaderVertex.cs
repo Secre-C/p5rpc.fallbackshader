@@ -83,19 +83,23 @@ internal unsafe class GfdShaderVertexFallback
                         var shaderFlags = new ShaderFlags();
                         shaderFlags |= ShaderFlags.OptimizationLevel3;
 
-                        var macros = ShaderArgs.GenerateShaderArgs(pId);
+                        var macros = gfdShaderDefines.GenerateShaderArgs(pId);
 
-                        if (config.Compile)
+                        try
                         {
-                            var vCode = D3DCompiler.CompileShader(vShaderSrc, "vs_5_0", macros, shaderFlags);
+                            var vCode = D3DCompiler.CompileShader(vShaderSrc, "vs_5_0", macros, shaderFlags, config.Debug);
                             if (config.Output)
                                 File.WriteAllBytes(Path.Join(modDir, "compiled", "Vertex_" + pId->GetHashCode() + ".bin"), vCode);
                             Logger.DebugLog("Dir: " + vShaderSrc);
                             Logger.DebugLog("Length: " + vCode.Length);
                             shader = _gfdShaderVertexCreate(pId, vCode, vCode.Length);
+                            return shader;
                         }
-
-                        return shader;
+                        catch (Exception e)
+                        {
+                            Logger.Log($"Failed to compile Vertex shader for {pId->GetHashCode()}: {e.Message}");
+                            return null;
+                        }
                     }, result).Activate();
             });
     }
