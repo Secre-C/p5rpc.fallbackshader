@@ -8,7 +8,7 @@ namespace p5rpc.fallbackshader.Utils;
 
 public static class D3DCompiler
 {
-    internal static byte[] CompileShader(string source, string profile, ShaderMacro[] macros, ShaderFlags flags, bool consoleOutput = false)
+    internal static byte[] CompileShader(string source, string profile, ShaderMacro[] macros, ShaderFlags flags)
     {
         var compiler = new ShaderCompiler(new ShaderCompilerArguments
         {
@@ -18,12 +18,8 @@ public static class D3DCompiler
             EntryPoint = "main",
             ExtraMacros = macros.ToList(),
             NoBuildPath = true
-        }, false, null);
+        }, false, Logger.DebugLog);
 
-        foreach (var macro in macros)
-        {
-            Logger.DebugLog(macro.Name + "=" + macro.Definition);
-        }
         var shader = compiler.CompileFile(source);
         
         using var byteStream = new MemoryStream();

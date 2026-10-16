@@ -93,7 +93,7 @@ internal unsafe class GfdShaderFragmentFallback
                             var macros = gfdShaderDefines.GenerateShaderArgs(pId);
                             Logger.DebugLog("macros: " + macros.Length);
 
-                            var pCode = D3DCompiler.CompileShader(pShaderSrc, "ps_5_0", macros, shaderFlags, config.Debug);
+                            var pCode = D3DCompiler.CompileShader(pShaderSrc, "ps_5_0", macros, shaderFlags);
                             if (config.Output)
                                 File.WriteAllBytes(Path.Join(modDir, "compiled", "Pixel_" + pId->GetHashCode() + ".bin"), pCode);
 

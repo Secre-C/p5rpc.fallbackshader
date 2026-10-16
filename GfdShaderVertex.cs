@@ -87,7 +87,7 @@ internal unsafe class GfdShaderVertexFallback
 
                         try
                         {
-                            var vCode = D3DCompiler.CompileShader(vShaderSrc, "vs_5_0", macros, shaderFlags, config.Debug);
+                            var vCode = D3DCompiler.CompileShader(vShaderSrc, "vs_5_0", macros, shaderFlags);
                             if (config.Output)
                                 File.WriteAllBytes(Path.Join(modDir, "compiled", "Vertex_" + pId->GetHashCode() + ".bin"), vCode);
                             Logger.DebugLog("Dir: " + vShaderSrc);
