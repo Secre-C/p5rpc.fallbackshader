@@ -160,7 +160,7 @@ public static class gfdShaderDefines
             if (slot < 3)
             {
                 texcoordin[slot] = val;
-                macro.Add(new ShaderMacro("CHANNEL_TEX" + (i + 1), pId->texcoordout >> (i * 3) & 0x7));
+                macro.Add(new ShaderMacro("CHANNEL_TEX" + (i + 1), slot));
             }
         }
 
