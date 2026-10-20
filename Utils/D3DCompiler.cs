@@ -17,7 +17,8 @@ public static class D3DCompiler
             BuildV1 = false,
             EntryPoint = "main",
             ExtraMacros = macros.ToList(),
-            NoBuildPath = true
+            NoBuildPath = true,
+            NoWarnings =  false,
         }, false, Logger.DebugLog);
 
         var shader = compiler.CompileFile(source);

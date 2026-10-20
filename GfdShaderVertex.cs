@@ -80,6 +80,16 @@ internal unsafe class GfdShaderVertexFallback
                         GfdShaderVertex* shader = null;
 
                         var vShaderSrc = Path.Join(modDir, "ShaderSrc", pId->type + "_vs.hlsl");
+                        var vShaderBin = Path.Join(modDir, "compiled", "Vertex_" + pId->GetHashCode() + ".bin");
+                        
+                        if (File.Exists(vShaderBin))
+                        {
+                            Logger.DebugLog($"Found Existing Shader: {vShaderBin}");
+                            var vCode = File.ReadAllBytes(vShaderBin);
+                            shader = _gfdShaderVertexCreate(pId, vCode, vCode.Length);
+                            return shader;
+                        }
+                        
                         var shaderFlags = new ShaderFlags();
                         shaderFlags |= ShaderFlags.OptimizationLevel3;
 
@@ -89,7 +99,7 @@ internal unsafe class GfdShaderVertexFallback
                         {
                             var vCode = D3DCompiler.CompileShader(vShaderSrc, "vs_5_0", macros, shaderFlags);
                             if (config.Output)
-                                File.WriteAllBytes(Path.Join(modDir, "compiled", "Vertex_" + pId->GetHashCode() + ".bin"), vCode);
+                                File.WriteAllBytes(vShaderBin, vCode);
                             Logger.DebugLog("Dir: " + vShaderSrc);
                             Logger.DebugLog("Length: " + vCode.Length);
                             shader = _gfdShaderVertexCreate(pId, vCode, vCode.Length);

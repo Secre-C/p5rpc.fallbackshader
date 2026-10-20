@@ -1,4 +1,5 @@
 ﻿using p5rpc.fallbackshader.Template;
+using p5rpc.fallbackshader.Utils;
 using Reloaded.Hooks.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
 #if DEBUG
@@ -65,7 +66,10 @@ public class Mod : ModBase // <= Do not Remove.
 
         // TODO: Implement some mod logic
         Utils.Utils.Initialize(context);
-        FallbackShader.GetGfdCommonFuncs(_hooks, _configuration, _modLoader.GetDirectoryForModId(_modConfig.ModId));
+        var modDir = _modLoader.GetDirectoryForModId(_modConfig.ModId);
+        Logger.DebugLog($"ModDir: {modDir}");
+        Directory.CreateDirectory(Path.Join(modDir, "compiled"));
+        FallbackShader.GetGfdCommonFuncs(_hooks, _configuration, modDir);
     }
 
     #region For Exports, Serialization etc.

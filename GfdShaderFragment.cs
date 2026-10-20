@@ -83,10 +83,21 @@ internal unsafe class GfdShaderFragmentFallback
                         if (pId != null && config.Mode != Config.PrintMode.Off)
                             Logger.Log(pId->GetHashCode());
 
+                        
                         GfdShaderFragment* shader = null;
                         try
                         {
                             var pShaderSrc = Path.Join(modDir, "ShaderSrc", pId->type + "_ps.hlsl");
+                            var pShaderBin = Path.Join(modDir, "compiled", "Pixel_" + pId->GetHashCode() + ".bin");
+                            
+                            if (File.Exists(pShaderBin))
+                            {
+                                Logger.DebugLog($"Found Existing Shader: {pShaderBin}");
+                                var pCodeFile = File.ReadAllBytes(pShaderBin);
+                                shader = _gfdShaderFragmentCreate(pId, pCodeFile, pCodeFile.Length);
+                                return shader;
+                            }
+                            
                             var shaderFlags = new ShaderFlags();
                             shaderFlags |= ShaderFlags.OptimizationLevel3;
 
