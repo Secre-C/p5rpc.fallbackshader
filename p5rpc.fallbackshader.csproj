@@ -70,6 +70,31 @@
         <None Remove="Submodules\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ClCompile Include="ShaderSrc\0_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\0_vs.hlsl" />
+      <ClCompile Include="ShaderSrc\119_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\119_vs.hlsl" />
+      <ClCompile Include="ShaderSrc\134_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\134_vs.hlsl" />
+      <ClCompile Include="ShaderSrc\1_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\1_vs.hlsl" />
+      <ClCompile Include="ShaderSrc\2_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\2_vs.hlsl" />
+      <ClCompile Include="ShaderSrc\3_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\3_vs.hlsl" />
+      <ClCompile Include="ShaderSrc\70_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\70_vs.hlsl" />
+      <ClCompile Include="ShaderSrc\71_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\71_vs.hlsl" />
+      <ClCompile Include="ShaderSrc\92_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\92_vs.hlsl" />
+      <ClCompile Include="ShaderSrc\93_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\93_vs.hlsl" />
+      <ClCompile Include="ShaderSrc\99_ps.hlsl" />
+      <ClCompile Include="ShaderSrc\99_vs.hlsl" />
+    </ItemGroup>
+
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="export RELOADEDIIMODS=&quot;/home/secrec/Desktop/Reloaded-II - P5R/Mods&quot;"/>
     </Target>

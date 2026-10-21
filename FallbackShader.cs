@@ -7,6 +7,7 @@ public static unsafe class FallbackShader
 {
     internal static IReloadedHooks hooks;
     internal static Config config;
+    internal static string gameDir;
     internal static string modDir;
 
     internal static gfdGlobalGraphics* _gfdGlobal;
@@ -31,10 +32,11 @@ public static unsafe class FallbackShader
         return null;
     }
 
-    internal static void GetGfdCommonFuncs(IReloadedHooks hooks, Config config, string modDir)
+    internal static void GetGfdCommonFuncs(IReloadedHooks hooks, Config config, string gameDir, string modDir)
     {
         FallbackShader.hooks = hooks;
         FallbackShader.config = config;
+        FallbackShader.gameDir = gameDir;
         FallbackShader.modDir = modDir;
 
         Scanner.SigScan("48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8B CB E8 ?? ?? ?? ?? 48 85 C0 75", "gfdGlobalRef",

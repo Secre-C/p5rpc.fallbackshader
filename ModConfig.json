@@ -2,7 +2,7 @@
   "ModId": "p5rpc.fallbackshader",
   "ModName": "Compile Missing Shaders",
   "ModAuthor": "SecreC.",
-  "ModVersion": "2.0.0",
+  "ModVersion": "1.0.0",
   "ModDescription": "Automatically Compile a shader or use a fallback shader when the game\u0027s unable to find one. (who needs claude anyway)",
   "ModDll": "p5rpc.fallbackshader.dll",
   "ModIcon": "Preview.png",
@@ -60,13 +60,16 @@
       "RepositoryName": "p5rpc.fallbackshader",
       "UseReleaseTag": true,
       "AssetFileName": "Mod.zip"
+    },
+    "GameBanana": {
+      "ItemType": "Mod",
+      "ItemId": 730554
     }
   },
   "IsUniversalMod": false,
   "ModDependencies": [
     "Reloaded.Memory.SigScan.ReloadedII",
-    "reloaded.sharedlib.hooks",
-    "SharedScans.Reloaded"
+    "reloaded.sharedlib.hooks"
   ],
   "OptionalDependencies": [],
   "SupportedAppId": [

@@ -68,13 +68,13 @@ public class Mod : ModBase // <= Do not Remove.
         Utils.Utils.Initialize(context);
         
         var modDir = _modLoader.GetDirectoryForModId(_modConfig.ModId);
-        Directory.CreateDirectory(Path.Join(modDir, "compiled"));
         
         var gameDir = Path.GetDirectoryName(_modLoader.GetAppConfig().AppLocation);
+        Directory.CreateDirectory(Path.Join(gameDir, "compiled"));
         File.Copy(Path.Join(modDir, "d3dcompiler_47.dll"), Path.Join(gameDir, "d3dcompiler_47.dll"), true);
         
         //D3DCompiler.Validate("/home/secrec/Downloads/ShaderDump.txt", modDir);
-        FallbackShader.GetGfdCommonFuncs(_hooks, _configuration, modDir);
+        FallbackShader.GetGfdCommonFuncs(_hooks, _configuration, gameDir, modDir);
     }
 
     #region For Exports, Serialization etc.

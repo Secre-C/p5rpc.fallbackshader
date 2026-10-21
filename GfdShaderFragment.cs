@@ -88,7 +88,7 @@ internal unsafe class GfdShaderFragmentFallback
                         try
                         {
                             var pShaderSrc = Path.Join(modDir, "ShaderSrc", pId->type + "_ps.hlsl");
-                            var pShaderBin = Path.Join(modDir, "compiled", "Pixel_" + pId->GetHashCode() + ".bin");
+                            var pShaderBin = Path.Join(gameDir, "compiled", "Pixel_" + pId->GetHashCode() + ".bin");
                             
                             if (File.Exists(pShaderBin))
                             {
@@ -106,7 +106,7 @@ internal unsafe class GfdShaderFragmentFallback
 
                             var pCode = D3DCompiler.CompileShader(pShaderSrc, "ps_5_0", macros, shaderFlags);
                             if (config.Output)
-                                File.WriteAllBytes(Path.Join(modDir, "compiled", "Pixel_" + pId->GetHashCode() + ".bin"), pCode);
+                                File.WriteAllBytes(Path.Join(gameDir, "compiled", "Pixel_" + pId->GetHashCode() + ".bin"), pCode);
 
                             Logger.DebugLog("Dir: " + pShaderSrc);
                             Logger.DebugLog("Length: " + pCode.Length);

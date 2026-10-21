@@ -80,7 +80,7 @@ internal unsafe class GfdShaderVertexFallback
                         GfdShaderVertex* shader = null;
 
                         var vShaderSrc = Path.Join(modDir, "ShaderSrc", pId->type + "_vs.hlsl");
-                        var vShaderBin = Path.Join(modDir, "compiled", "Vertex_" + pId->GetHashCode() + ".bin");
+                        var vShaderBin = Path.Join(gameDir, "compiled", "Vertex_" + pId->GetHashCode() + ".bin");
                         
                         if (File.Exists(vShaderBin))
                         {
