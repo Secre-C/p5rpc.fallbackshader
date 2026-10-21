@@ -43,8 +43,8 @@ public class Config : Configurable<Config>
 
     [DisplayName("Output Shaders to File")]
     [Description("Output compiled shaders to file (found in this mods \"compiled\" folder)")]
-    [DefaultValue(false)]
-    public bool Output { get; set; } = false;
+    [DefaultValue(true)]
+    public bool Output { get; set; } = true;
     
     [DisplayName("Print Mode")]
     [Description("Mode for Printing Missing Shaders")]
